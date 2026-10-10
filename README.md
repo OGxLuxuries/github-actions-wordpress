@@ -22,7 +22,7 @@ The selected AWS account and region must contain the existing EC2 key pair named
 
 ## Run the activity
 
-1. Open **Actions** and select **Terraform_apply_and_destroy**.
+1. Open **Actions** and select **Terraform_destroy**.
 2. Choose **Run workflow** with `apply` to create the demo.
 3. To produce the required destroy evidence, run the workflow again with `destroy`.
 4. Save a screenshot of the successful GitHub Actions destroy run showing the Terraform destroy result and add it to this repository (for example, `screenshots/terraform-destroy-success.png`).
