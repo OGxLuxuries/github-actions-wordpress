@@ -9,9 +9,9 @@ DB_NAME="wordpress"
 DB_USER="wordpress"
 DB_PASSWORD="$(openssl rand -hex 24)"
 
-mysql -e "CREATE DATABASE \`${DB_NAME}\`;"
-mysql -e "CREATE USER '\`${DB_USER}\`'@'localhost' IDENTIFIED BY '\`${DB_PASSWORD}\`';"
-mysql -e "GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '\`${DB_USER}\`'@'localhost'; FLUSH PRIVILEGES;"
+mysql -e "CREATE DATABASE ${DB_NAME};"
+mysql -e "CREATE USER '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
+mysql -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost'; FLUSH PRIVILEGES;"
 
 cd /var/www/html
 wget -q https://wordpress.org/latest.tar.gz -O latest.tar.gz
