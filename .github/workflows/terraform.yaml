@@ -1,4 +1,4 @@
-name: Terraform_apply_and_destroy
+name: Terraform_destroy
 
 on:
   workflow_dispatch:
