@@ -1,0 +1,123 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DescribeWordPressDeploymentResources",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeAccountAttributes",
+        "ec2:DescribeAvailabilityZones",
+        "ec2:DescribeImages",
+        "ec2:DescribeInstanceAttribute",
+        "ec2:DescribeInstanceCreditSpecifications",
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeInstances",
+        "ec2:DescribeKeyPairs",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeTags",
+        "ec2:DescribeVolumes",
+        "ec2:DescribeVolumesModifications",
+        "ec2:DescribeVpcs"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "LaunchSmallWordPressInstance",
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:InstanceType": "t2.micro"
+        }
+      }
+    },
+    {
+      "Sid": "TagWordPressInstanceAndSecurityGroup",
+      "Effect": "Allow",
+      "Action": "ec2:CreateTags",
+      "Resource": [
+        "arn:aws:ec2:us-east-1:068648884177:instance/*",
+        "arn:aws:ec2:us-east-1:068648884177:security-group/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestTag/Assignment": "github-actions-wordpress"
+        }
+      }
+    },
+    {
+      "Sid": "CreateWordPressSecurityGroup",
+      "Effect": "Allow",
+      "Action": "ec2:CreateSecurityGroup",
+      "Resource": [
+        "arn:aws:ec2:us-east-1:068648884177:security-group/*",
+        "arn:aws:ec2:us-east-1:068648884177:vpc/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestTag/Assignment": "github-actions-wordpress"
+        }
+      }
+    },
+    {
+      "Sid": "ManageWordPressSecurityGroupRules",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupEgress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:068648884177:security-group/*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:ResourceTag/Assignment": "github-actions-wordpress"
+        }
+      }
+    },
+    {
+      "Sid": "DeleteWordPressSecurityGroup",
+      "Effect": "Allow",
+      "Action": "ec2:DeleteSecurityGroup",
+      "Resource": "arn:aws:ec2:us-east-1:068648884177:security-group/*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:ResourceTag/Assignment": "github-actions-wordpress"
+        }
+      }
+    },
+    {
+      "Sid": "TerminateWordPressInstance",
+      "Effect": "Allow",
+      "Action": "ec2:TerminateInstances",
+      "Resource": "arn:aws:ec2:us-east-1:068648884177:instance/*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:ResourceTag/Assignment": "github-actions-wordpress"
+        }
+      }
+    },
+    {
+      "Sid": "ReadTerraformStateBucketPrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::gh-actions-wordpress-tfstate-068648884177",
+      "Condition": {
+        "StringEquals": {
+          "s3:prefix": "wordpress/terraform.tfstate"
+        }
+      }
+    },
+    {
+      "Sid": "ReadAndWriteTerraformState",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::gh-actions-wordpress-tfstate-068648884177/wordpress/terraform.tfstate"
+    }
+  ]
+}
