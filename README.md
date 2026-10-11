@@ -7,6 +7,7 @@ This repository contains the core activity implementation: GitHub Actions runs T
 - `.github/workflows/terraform.yaml`: manual workflow dispatch with **apply** and **destroy** choices.
 - `tf/`: Terraform configuration for an Amazon Linux EC2 host, an HTTP security group, and WordPress bootstrap.
 - `tf/backend.tf`: remote state configuration for the course activity's S3 bucket.
+- `iam/github-actions-wordpress-policy.json`: scoped IAM permissions used by the dedicated GitHub Actions user.
 - `.gitignore`: excludes local state, plans, caches, variable files, and private keys.
 
 ## GitHub repository setup
