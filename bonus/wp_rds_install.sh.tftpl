@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+dnf update -y
+dnf install -y wget tar httpd php php-mysqlnd php-fpm
+systemctl enable --now httpd php-fpm
+
+cd /var/www/html
+wget -q https://wordpress.org/latest.tar.gz -O latest.tar.gz
+tar -xzf latest.tar.gz --strip-components=1
+rm latest.tar.gz
+cp wp-config-sample.php wp-config.php
+sed -i 's/database_name_here/${db_name}/' wp-config.php
+sed -i 's/username_here/${db_username}/' wp-config.php
+sed -i 's/password_here/${db_password}/' wp-config.php
+sed -i 's/localhost/${db_host}/' wp-config.php
+chown -R apache:apache /var/www/html
+systemctl restart httpd php-fpm
