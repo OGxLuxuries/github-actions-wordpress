@@ -30,6 +30,11 @@ The selected AWS account and region must contain the existing EC2 key pair named
 
 The WordPress host and HTTP security group are billable AWS resources while present. Run the destroy operation after the demonstration.
 
+## Verified runs
+
+- [Successful Terraform apply](https://github.com/OGxLuxuries/github-actions-wordpress/actions/runs/38501513120) created the WordPress EC2 instance and security group.
+- [Successful Terraform destroy](https://github.com/OGxLuxuries/github-actions-wordpress/actions/runs/38502086108) completed the teardown. The first attempt terminated the instance; the successful retry deleted the security group. AWS verification showed the instance terminated and no assignment security group remaining.
+
 ## Core deliverables
 
 - Terraform configuration checked into the repository.
