@@ -51,15 +51,18 @@
       "Sid": "CreateWordPressSecurityGroup",
       "Effect": "Allow",
       "Action": "ec2:CreateSecurityGroup",
-      "Resource": [
-        "arn:aws:ec2:us-east-1:068648884177:security-group/*",
-        "arn:aws:ec2:us-east-1:068648884177:vpc/*"
-      ],
+      "Resource": "arn:aws:ec2:us-east-1:068648884177:security-group/*",
       "Condition": {
         "StringEquals": {
           "aws:RequestTag/Assignment": "github-actions-wordpress"
         }
       }
+    },
+    {
+      "Sid": "UseDefaultVpcForWordPressSecurityGroup",
+      "Effect": "Allow",
+      "Action": "ec2:CreateSecurityGroup",
+      "Resource": "arn:aws:ec2:us-east-1:068648884177:vpc/vpc-06f6a659c175e564f"
     },
     {
       "Sid": "ManageWordPressSecurityGroupRules",
