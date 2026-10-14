@@ -26,10 +26,33 @@
       "Sid": "LaunchSmallWordPressInstance",
       "Effect": "Allow",
       "Action": "ec2:RunInstances",
-      "Resource": "*",
+      "Resource": "arn:aws:ec2:us-east-1:068648884177:instance/*",
       "Condition": {
         "StringEquals": {
           "ec2:InstanceType": "t2.micro"
+        }
+      }
+    },
+    {
+      "Sid": "UseWordPressLaunchDependencies",
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": [
+        "arn:aws:ec2:us-east-1::image/ami-*",
+        "arn:aws:ec2:us-east-1:068648884177:subnet/*",
+        "arn:aws:ec2:us-east-1:068648884177:network-interface/*",
+        "arn:aws:ec2:us-east-1:068648884177:volume/*",
+        "arn:aws:ec2:us-east-1:068648884177:key-pair/oliver-kp"
+      ]
+    },
+    {
+      "Sid": "UseWordPressSecurityGroupForLaunch",
+      "Effect": "Allow",
+      "Action": "ec2:RunInstances",
+      "Resource": "arn:aws:ec2:us-east-1:068648884177:security-group/*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:ResourceTag/Assignment": "github-actions-wordpress"
         }
       }
     },
