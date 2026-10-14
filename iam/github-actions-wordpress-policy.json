@@ -18,7 +18,8 @@
         "ec2:DescribeTags",
         "ec2:DescribeVolumes",
         "ec2:DescribeVolumesModifications",
-        "ec2:DescribeVpcs"
+        "ec2:DescribeVpcs",
+        "ec2:DescribeNetworkInterfaces"
       ],
       "Resource": "*"
     },
